@@ -1,28 +1,3 @@
-body{
-	background-image: url("../images/background.jpg");
-	margin: 30px;
+button, div, form, input{
+    margin:10px;
 }
-
-h1{
-  color: white;
-  text-align: center;
-  background-color: black;
-  margin-right: 400px;
-  margin-left: 400px;
-
-}
-
-#trivia{
-	text-align: center;
-	background-color: white;
-	margin-right: 400px;
-	margin-left: 400px;
-}
-
-#results{
-	text-align: center;
-	background-color: white;
-	margin-right: 400px;
-	margin-left: 400px;
-}
-
