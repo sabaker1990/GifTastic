@@ -46,7 +46,7 @@ $(document).ready(function() {
 
 
     //Event handlers
-    
+
     $("#add-gif").on("click", function(event){
         event.preventDefault();
         var gif = $("#gif-input").val().trim();
@@ -56,5 +56,40 @@ $(document).ready(function() {
     });
 
     $(document).on("click", ".gif", displayGif);
+    
+        function displayGif() {
 
+           var animal = $(this).attr("data-name");
+           var queryURL = "http://api.giphy.com/v1/gifs/search?q=" +
+               animal + "&api_key=dc6zaTOxFJmzC&limit=10";
+
+           $.ajax({
+               url: queryURL,
+               method: "GET"
+           })
+
+           .done(function(response) {
+               var results = response.data;
+
+               for (var i=0; i < results.length; i++) {
+
+                   if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
+                       var gifDiv = $("<div class='item'>");
+                       var rating = results[i].rating;
+                       var p = $("<p>").text("Rating: " + rating);
+                       var animalImage = $("<img>");
+                           animalImage.attr("src", results[i].images.fixed_height_still.url);
+                           animalImage.attr("data-still", results[i].images.fixed_height_still.url);
+                           animalImage.attr("data-animate", results[i].images.fixed_height.url);
+                           animalImage.attr("data-state", "still");
+                           animalImage.addClass("animate");
+
+                       gifDiv.append(p);
+                       gifDiv.append(animalImage);
+
+                       $("#display-gifs").prepend(gifDiv);
+                   }
+               }
+           })
+       }
 });
